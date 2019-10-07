@@ -2,54 +2,249 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.appContainer{
+
+.sequensorTopControlls {
+  display: flex;
+}
+
+.synthSwitchWrapper {
+  width: 130px;
+  height: 130px;
+  margin: 10px;
+  background-color: rgba(0, 0, 0, 0.10);
+  display: flex;
+  flex-wrap: wrap;
+
+  .synthSwitch {
     display: flex;
-    width: 100vw;
-    .keyboardContainer{
-        display: flex;
-        width: 700px;
-        height: 300px;
-        .synthKey{
-            width: calc(100% / 7);
-            height: 100%;
-            border-right: 2px solid black;
-            background-color: rgba(0,0,0,0.10);
-            &:last-of-type{
-                border-right: 0;
-            }
-        }
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 25%;
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .active {
+    background-color: rgba(0, 0, 0, 0.10);
+  }
+}
+
+.synthSwitchWrapperThree {
+  width: 130px;
+  height: 130px;
+  margin: 10px;
+  background-color: rgba(0, 0, 0, 0.10);
+  display: flex;
+  flex-wrap: wrap;
+
+  .synthSwitch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100%/3);
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .active {
+    background-color: rgba(0, 0, 0, 0.10);
+  }
+}
+
+.Display {
+  width: 280px;
+  height: 130px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.10);
+  position: relative;
+
+  h4 {
+    position: absolute;
+    top: 15px;
+    margin: 0;
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+  }
+
+  span {
+    font-family: 'Digital-7';
+    font-size: 70px;
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    user-select: none;
+  }
+}
+
+.sequensorPedals {
+  display: flex;
+  flex-flow: row;
+  align-items: flex-start;
+}
+
+.pedal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  width: 300px;
+  height: auto;
+  margin: 10px;
+  background-color: rgba(0, 0, 0, 0.10);
+
+  h1 {
+    width: 100%;
+    font-family: 'Inter';
+    font-size: 32px;
+    text-align: center;
+    margin: 0px;
+    margin-top: 15px;
+  }
+}
+
+.KnobWrapper {
+  position: relative;
+  margin: 10px;
+  width: 130px;
+  height: 130px;
+  font-family: 'Inter';
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.10);
+
+  h1 {
+    font-weight: 600;
+    font-size: 16px;
+    position: absolute;
+    width: 100%;
+    top: 15px;
+    margin: 0;
+  }
+}
+
+.Knob {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-top: 30px;
+  border-radius: 60px;
+  background: black;
+
+  &::before {
+    position: absolute;
+    top: calc(50% - 2px);
+    display: block;
+    content: "";
+    width: 40%;
+    height: 4px;
+    background: white;
+  }
+}
+
+
+.SliderVertical {
+  position: relative;
+  width: 100px;
+  margin: 10px;
+  height: 300px;
+  background: #ffe838;
+  background: #fcfcfc;
+  border-radius: 6px;
+  box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.08);
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+
+  .thumb {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
+  }
+}
+
+
+.sequensorBody {
+  display: flex;
+}
+
+.appContainer {
+  user-select: none;
+
+  .keyboardContainer {
+    display: flex;
+    height: 280px;
+    width: 580px;
+    margin: 10px;
+
+    .synthKey {
+      width: calc(100% / 8);
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.10);
+
+      &:nth-child(2n) {
+        background-color: rgba(0, 0, 0, 0.08);
+      }
+
+      &:last-of-type {
+        border-right: 0;
+      }
     }
-    
-    .controllsContainer{
-        margin-left: 20px; 
-        .controllsButton{
-            width: 150px;
-            height: 140px;
-            margin-bottom: 20px;
-            color: black;
-            user-select: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter';
-            font-weight: 600;
-            font-size: 16px;
-        }
-        .record{
-            background-color: rgba(0,0,0,0.10);
-            color: black;
-        }
-        .recording{
-            background-color: red;
-            color: white;
-        }
-        .play{
-            background-color: rgba(0,0,0,0.10);
-            color: black;
-        }
-        .playing{
-            background-color: green;
-            color: white;
-        }
+  }
+
+  .sequensorControllsContainer {
+    display: flex;
+    flex-flow: column;
+
+    .controllsButton {
+      width: 130px;
+      height: 130px;
+      margin: 10px;
+      color: black;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter';
+      font-weight: 600;
+      font-size: 16px;
     }
+
+    .record {
+      background-color: rgba(0, 0, 0, 0.10);
+      color: black;
+    }
+
+    .recording {
+      background-color: red;
+      color: white;
+    }
+
+    .play {
+      background-color: rgba(0, 0, 0, 0.10);
+      color: black;
+    }
+
+    .playing {
+      background-color: green;
+      color: white;
+    }
+  }
 }

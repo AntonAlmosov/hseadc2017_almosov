@@ -49,10 +49,10 @@ export default class Synthesizer extends React.Component {
     let phaser = new Tone.Phaser()
     phaser.wet.value = 0
 
+    synth.chain(volume, chorus, distortion, phaser, Tone.Master)
     pluckSynth.chain(volume, chorus, distortion, phaser, Tone.Master)
     membraneSynth.chain(volume, chorus, distortion, phaser, Tone.Master)
     metalSynth.chain(volume, chorus, distortion, phaser, Tone.Master)
-    synth.chain(volume, chorus, distortion, phaser, Tone.Master)
 
     this.state = {
       bpm: 150,

@@ -24,7 +24,7 @@ export default class ChorusPedal extends React.Component {
   render() {
     return (
       <div className="pedal">
-        <h1>Chorus</h1>
+        <h1>Phaser</h1>
         <Display
           current={this.state.current}
           info={[

@@ -1,16 +1,40 @@
 import React from 'react'
 
-export default ({ handleClick }) => {
+export default ({ handleClick, octave }) => {
   return (
     <div className="keyboardContainer">
-      <div onClick={handleClick.bind(this, 'C4')} className="synthKey"></div>
-      <div onClick={handleClick.bind(this, 'D4')} className="synthKey"></div>
-      <div onClick={handleClick.bind(this, 'E4')} className="synthKey"></div>
-      <div onClick={handleClick.bind(this, 'F4')} className="synthKey"></div>
-      <div onClick={handleClick.bind(this, 'G4')} className="synthKey"></div>
-      <div onClick={handleClick.bind(this, 'A4')} className="synthKey"></div>
-      <div onClick={handleClick.bind(this, 'B4')} className="synthKey"></div>
-      <div onClick={handleClick.bind(this, 'C5')} className="synthKey"></div>
+      <div
+        onClick={handleClick.bind(this, 'C' + octave)}
+        className="synthKey"
+      ></div>
+      <div
+        onClick={handleClick.bind(this, 'D' + octave)}
+        className="synthKey"
+      ></div>
+      <div
+        onClick={handleClick.bind(this, 'E' + octave)}
+        className="synthKey"
+      ></div>
+      <div
+        onClick={handleClick.bind(this, 'F' + octave)}
+        className="synthKey"
+      ></div>
+      <div
+        onClick={handleClick.bind(this, 'G' + octave)}
+        className="synthKey"
+      ></div>
+      <div
+        onClick={handleClick.bind(this, 'A' + octave)}
+        className="synthKey"
+      ></div>
+      <div
+        onClick={handleClick.bind(this, 'B' + octave)}
+        className="synthKey"
+      ></div>
+      <div
+        onClick={handleClick.bind(this, 'C' + (octave + 1))}
+        className="synthKey"
+      ></div>
     </div>
   )
 }

@@ -2,16 +2,14 @@ import _ from 'lodash'
 import React from 'react'
 import Tone from 'tone'
 
-import Display from '../components/Display'
 import Keyboard from '../components/Keyboard'
-import KnobParam from '../components/KnobParam'
 import StateButton from '../components/StateButton'
 import SequensorTopControlls from '../components/SequensorTopControlls'
-import SliderVertical from '../components/SliderVertical'
 import ChorusPedal from '../components/ChorusPedal'
-import Knob from '../components/Knob'
 import DistortionPedal from '../components/DistortionPedal'
 import PhaserPedal from '../components/PhaserPedal'
+import SequensorControlls from '../components/SequensorControlls'
+import SynthParams from '../components/SynthParams'
 
 export default class Synthesizer extends React.Component {
   constructor(props) {
@@ -37,10 +35,7 @@ export default class Synthesizer extends React.Component {
     let synth = new Tone.Synth()
 
     //Declaring effects
-    let volume = new Tone.Volume({
-      volume: 0,
-      mute: false
-    })
+    let volume = new Tone.PanVol()
     let chorus = new Tone.Chorus()
     chorus.wet.value = 0
     chorus.spread = 0
@@ -55,7 +50,10 @@ export default class Synthesizer extends React.Component {
     metalSynth.chain(volume, chorus, distortion, phaser, Tone.Master)
 
     this.state = {
+      octave: 4,
       bpm: 150,
+      noteLength: '8n',
+      sequenseNoteLength: '4n',
       synth: synth,
       synthCollection: {
         active: 'pluck',
@@ -67,11 +65,7 @@ export default class Synthesizer extends React.Component {
       recording: false,
       sequence: [],
       playing: false,
-      volume: {
-        effect: volume,
-        volume: 0,
-        mute: false
-      },
+      volume: volume,
       chorus: chorus,
       distortion: distortion,
       phaser: phaser
@@ -79,37 +73,41 @@ export default class Synthesizer extends React.Component {
     this.handleSynthKeyPress = this.handleSynthKeyPress.bind(this)
     this.handleRecordKeyPress = this.handleRecordKeyPress.bind(this)
     this.handleStartKeyPress = this.handleStartKeyPress.bind(this)
-    this.changeEffectVolume = this.changeEffectVolume.bind(this)
     this.changeEffectBpm = this.changeEffectBpm.bind(this)
     this.handleSynthSwitch = this.handleSynthSwitch.bind(this)
     this.changeEffect = this.changeEffect.bind(this)
-  }
-
-  changeEffectVolume(effectName, value) {
-    let { effect, volume, mute } = this.state[effectName]
-    effect.volume.value = value
-    volume = value
-    this.setState({
-      [`${effectName}`]: {
-        effect,
-        volume,
-        mute
-      }
-    })
+    this.changeOctave = this.changeOctave.bind(this)
+    this.changeNoteLength = this.changeNoteLength.bind(this)
+    this.startSequense = this.startSequense.bind(this)
+    this.changeSynthEffect = this.changeSynthEffect.bind(this)
   }
 
   changeEffect(effectName, paramName, increment, value) {
     let effect = this.state[effectName]
-    if (
-      paramName == 'wet' ||
-      (effectName == 'chorus') & (paramName == 'frequency')
-    ) {
+    if (typeof effect[`${paramName}`] == 'object') {
       effect[`${paramName}`].value = value / increment
-    } else if (paramName == 'type' || paramName == 'oversample') {
+    } else if (typeof effect[`${paramName}`] == 'string') {
       effect[`${paramName}`] = value
     } else {
       effect[`${paramName}`] = value / increment
     }
+  }
+
+  changeSynthEffect(effectName, paramName, increment, value) {
+    let effect = this.state.synth[effectName]
+    if (typeof effect[`${paramName}`] == 'object') {
+      effect[`${paramName}`].value = value / increment
+    } else if (typeof effect[`${paramName}`] == 'string') {
+      effect[`${paramName}`] = value
+    } else {
+      effect[`${paramName}`] = value / increment
+    }
+  }
+
+  changeOctave(value) {
+    this.setState({
+      octave: value
+    })
   }
 
   changeEffectBpm(effectName, value) {
@@ -120,10 +118,33 @@ export default class Synthesizer extends React.Component {
     })
   }
 
+  changeNoteLength(inChange, length) {
+    this.setState({
+      [`${inChange}`]: length,
+      playing: false
+    })
+    Tone.Transport.cancel()
+  }
+
+  startSequense() {
+    let synth = this.state.synth
+    var sequence = new Tone.Sequence(
+      function(time, note) {
+        synth.triggerAttackRelease(note, '8n', time)
+      },
+      this.state.sequence,
+      this.state.sequenseNoteLength
+    )
+    Tone.Transport.start()
+    sequence.start()
+  }
+
   handleSynthKeyPress(key) {
+    let synth = this.state.synth
+
     if (this.state.recording) {
       let arr = this.state.sequence
-      this.state.synth.triggerAttackRelease(key, '8n').toMaster()
+      synth.triggerAttackRelease(key, this.state.noteLength)
       if (this.state.sequence.length < 8) {
         arr.push(key)
         this.setState({
@@ -137,7 +158,7 @@ export default class Synthesizer extends React.Component {
         })
       }
     } else {
-      this.state.synth.triggerAttackRelease(key, '8n').toMaster
+      synth.triggerAttackRelease(key, this.state.noteLength)
     }
   }
 
@@ -167,7 +188,6 @@ export default class Synthesizer extends React.Component {
   }
 
   handleStartKeyPress() {
-    let synth = this.state.synth
     if (this.state.playing) {
       Tone.Transport.cancel()
       this.setState({
@@ -178,50 +198,45 @@ export default class Synthesizer extends React.Component {
         recording: false,
         playing: !this.state.playing
       })
-      var sequence = new Tone.Sequence(
-        function(time, note) {
-          synth.triggerAttackRelease(note, '8n', time)
-        },
-        this.state.sequence,
-        '8n'
-      )
-      Tone.Transport.start()
-      sequence.start()
+      this.startSequense()
     }
   }
 
   render() {
-    let volume = this.state.volume.effect
     return (
-      <div className="appContainer">
-        <SequensorTopControlls
-          volumeValue={volume.volume.value}
-          handleVolumeChange={this.changeEffectVolume}
-          bpmValue={Tone.Transport.bpm.value}
-          handleBpmChange={this.changeEffectBpm}
-          handleSynthSwitch={this.handleSynthSwitch}
-          synth={this.state.synth}
-        />
-        <div className="sequensorBody">
-          <Keyboard handleClick={this.handleSynthKeyPress} />
-          <div className="sequensorControllsContainer">
-            <StateButton
-              clickHandler={this.handleRecordKeyPress}
-              active={this.state.recording}
-              textTrue="Recording"
-              textFalse="Record"
-              cssTrue="recording"
-              cssFalse="record"
+      <div className={this.props.inView ? 'appContainer' : 'appContainer none'}>
+        <div className="row">
+          <div className="synthBody">
+            <SequensorTopControlls
+              volumeValue={this.state.volume}
+              handleVolumeChange={this.changeEffect}
+              bpmValue={Tone.Transport.bpm.value}
+              handleBpmChange={this.changeEffectBpm}
+              handleSynthSwitch={this.handleSynthSwitch}
+              octave={this.state.octave}
+              octaveHandler={this.changeOctave}
+              synth={this.state.synth}
+              handleNoteLength={this.changeNoteLength}
+              sequenseNoteLength={this.state.sequenseNoteLength}
             />
-            <StateButton
-              clickHandler={this.handleStartKeyPress}
-              active={this.state.playing}
-              textTrue="Playing"
-              textFalse="Play"
-              cssTrue="playing"
-              cssFalse="play"
-            />
+            <div className="sequensorBody">
+              <Keyboard
+                handleClick={this.handleSynthKeyPress}
+                octave={this.state.octave}
+              />
+              <SequensorControlls
+                handleRecordKeyPress={this.handleRecordKeyPress}
+                handleStartKeyPress={this.handleStartKeyPress}
+                recording={this.state.recording}
+                playing={this.state.playing}
+              />
+            </div>
           </div>
+          <SynthParams
+            subHandler={this.changeSynthEffect}
+            handler={this.changeEffect}
+            value={this.state.synth}
+          />
         </div>
         <div className="sequensorPedals">
           <ChorusPedal handler={this.changeEffect} value={this.state.chorus} />

@@ -111,7 +111,7 @@ export default class Knob extends React.Component {
     }
 
     return (
-      <div className="KnobWrapper">
+      <div className={this.props.hide ? 'none' : 'KnobWrapper'}>
         <h1>{this.props.paramName.replace(/^\w/, c => c.toUpperCase())}</h1>
         <div
           className="Knob"

@@ -56,8 +56,8 @@ export default class ChorusPedal extends React.Component {
         <KnobParam
           name="phaser"
           paramName="octaves"
-          min={0}
-          max={6}
+          min={1}
+          max={8}
           increment={1}
           initialDeg={-45}
           overDeg={270}

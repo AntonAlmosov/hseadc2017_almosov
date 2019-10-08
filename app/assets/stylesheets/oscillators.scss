@@ -3,8 +3,67 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-.sequensorTopControlls {
+
+.none {
+  display: none;
+}
+
+.oscillatorParams {
   display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+  height: 300px;
+  width: 300px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.sequensorTopControlls {}
+
+.row {
+  display: flex;
+}
+
+.octaveSwitcher {
+  width: 430px;
+  height: 130px;
+  margin: 10px;
+  display: flex;
+
+  .octaveButton {
+    width: calc(100%/8);
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.10);
+  }
+
+  .active {
+    background-color: rgba(0, 0, 0, 0.20);
+  }
+}
+
+.synthSwitchSquare {
+  width: 130px;
+  height: 130px;
+  margin: 10px;
+  background-color: rgba(0, 0, 0, 0.10);
+  display: flex;
+  flex-wrap: wrap;
+
+  .synthSwitch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .active {
+    background-color: rgba(0, 0, 0, 0.10);
+  }
 }
 
 .synthSwitchWrapper {
@@ -32,6 +91,32 @@
   }
 }
 
+.synthSwitchWrapperTwo {
+  width: 130px;
+  height: 130px;
+  margin: 10px;
+  background-color: rgba(0, 0, 0, 0.10);
+  display: flex;
+  flex-wrap: wrap;
+
+  .synthSwitch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .active {
+    background-color: rgba(0, 0, 0, 0.10);
+  }
+}
+
+
 .synthSwitchWrapperThree {
   width: 130px;
   height: 130px;
@@ -46,6 +131,31 @@
     align-items: center;
     width: 100%;
     height: calc(100%/3);
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .active {
+    background-color: rgba(0, 0, 0, 0.10);
+  }
+}
+
+.synthSwitchWrapperSix {
+  width: 130px;
+  height: 280px;
+  margin: 10px;
+  background-color: rgba(0, 0, 0, 0.10);
+  display: flex;
+  flex-wrap: wrap;
+
+  .synthSwitch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100%/6);
     font-family: 'Inter';
     font-weight: 600;
     font-size: 16px;

@@ -1,0 +1,14 @@
+.mixerWrapper {
+  display: flex;
+  height: 100vh;
+
+  .createSynth {
+    width: $basicWidth;
+    height: 100%;
+    background-image: url(asset-path('mixer/plus.svg'));
+    background-size: 78px 78px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+  }
+}

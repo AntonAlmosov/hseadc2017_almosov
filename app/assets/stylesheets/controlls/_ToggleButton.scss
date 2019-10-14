@@ -1,0 +1,18 @@
+.toggleButton {
+  width: $basicWidth;
+  height: $basicUnit;
+  background-color: $bg;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &.active {
+    background-color: black;
+    color: white;
+  }
+
+  &.yellow {
+    background-color: $yellow;
+  }
+}

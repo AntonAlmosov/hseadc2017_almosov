@@ -1,0 +1,38 @@
+.KnobWrapper {
+  position: relative;
+  width: $basicWidth;
+  height: $basicUnit;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.0);
+
+  h1 {
+    position: absolute;
+    width: 100%;
+    top: 12px;
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.Knob {
+  position: relative;
+  width: calc(#{$basicUnit} * 0.45);
+  height: calc(#{$basicUnit} * 0.45);
+  margin-top: 22.5%;
+  border: 5px solid black;
+  border-radius: 200px;
+  cursor: pointer;
+
+  &::before {
+    position: absolute;
+    top: calc(50% - 2px);
+    display: block;
+    content: "";
+    width: 40%;
+    height: 5px;
+    background: black;
+  }
+}

@@ -1,0 +1,19 @@
+.oscillatorPicker {
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+  width: calc(#{$basicWidth} * 2);
+  height: $basicUnit;
+
+  .oscillatorPickerItem {
+    width: $basicWidth;
+    height: calc(100%/3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.active {
+      background-color: $darkGrey;
+    }
+  }
+}

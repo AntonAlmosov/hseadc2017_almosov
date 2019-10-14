@@ -1,0 +1,16 @@
+.closeButton {
+  width: $basicWidth;
+  height: $basicUnit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include border;
+  cursor: pointer;
+
+  .closeButtonIcon {
+    width: calc(#{$basicUnit} * 0.21);
+    height: 21%;
+    background-image: url(asset-path('synth/close.svg'));
+    background-size: cover;
+  }
+}

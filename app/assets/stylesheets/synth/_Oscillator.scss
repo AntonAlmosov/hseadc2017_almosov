@@ -1,0 +1,7 @@
+.oscillator {
+  width: calc(#{$basicWidth} * 4 + 6px);
+  height: calc(#{$basicUnit} * 2);
+  position: relative;
+  margin-top: -6px;
+  margin-left: -6px;
+}

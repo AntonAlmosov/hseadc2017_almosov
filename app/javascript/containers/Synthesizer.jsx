@@ -2,14 +2,14 @@ import _ from 'lodash'
 import React from 'react'
 import Tone from 'tone'
 
-import Keyboard from '../components/Keyboard'
-import StateButton from '../components/StateButton'
-import SequensorTopControlls from '../components/SequensorTopControlls'
-import ChorusPedal from '../components/ChorusPedal'
-import DistortionPedal from '../components/DistortionPedal'
-import PhaserPedal from '../components/PhaserPedal'
-import SequensorControlls from '../components/SequensorControlls'
-import SynthParams from '../components/SynthParams'
+import Keyboard from '../components/old/Keyboard'
+import StateButton from '../components/old/StateButton'
+import SequensorTopControlls from '../components/old/SequensorTopControlls'
+import ChorusPedal from '../components/old/ChorusPedal'
+import DistortionPedal from '../components/old/DistortionPedal'
+import PhaserPedal from '../components/old/PhaserPedal'
+import SequensorControlls from '../old/components/SequensorControlls'
+import SynthParams from '../components/old/SynthParams'
 
 export default class Synthesizer extends React.Component {
   constructor(props) {

@@ -1,0 +1,7 @@
+.mixerDisplay {
+  width: $basicWidth;
+  height: calc(#{$basicWidth} * 3);
+  @include border;
+  background-image: url(asset-path('mixer/curve.svg'));
+  background-size: cover;
+}

@@ -1,0 +1,27 @@
+.synthButton {
+  width: $basicWidth;
+  height: $basicUnit;
+
+  .synthButtonItem {
+    width: 100%;
+    height: calc(100% / 3);
+    background-color: $grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    input {
+      height: calc(#{$fontSize} + 5px);
+      width: 100%;
+      text-align: center;
+      @include font;
+      outline: none;
+      border: 0;
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    &.input {
+      background-color: $bg;
+    }
+  }
+}

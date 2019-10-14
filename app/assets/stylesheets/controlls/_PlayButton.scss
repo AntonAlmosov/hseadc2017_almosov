@@ -1,0 +1,36 @@
+.playButton {
+  cursor: pointer;
+  width: $basicWidth;
+  height: calc(#{$basicUnit} * 2);
+  background-color: $darkGrey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include border;
+
+  .playButtonIcon {
+    background-image: url(asset-path('playButton/playing.svg'));
+  }
+}
+
+.playButtonIcon {
+  width: 90px;
+  height: 90px;
+  background-size: cover;
+  transform: translateX(-19px);
+}
+
+.playButtonActive {
+  cursor: pointer;
+  width: $basicWidth;
+  height: calc(#{$basicUnit} * 2);
+  background-color: $green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include border;
+
+  .playButtonIcon {
+    background-image: url(asset-path('playButton/play.svg'));
+  }
+}

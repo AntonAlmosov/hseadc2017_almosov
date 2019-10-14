@@ -1,0 +1,31 @@
+.mixerUnit {
+  width: $basicWidth;
+  height: 100vh;
+  margin-left: -6px;
+  @include border;
+
+  .mixerUnitHeader {
+    width: 100%;
+    height: $basicUnit;
+
+    input {
+      margin-top: 12px;
+      height: $fontSize;
+      width: 100%;
+      text-align: center;
+      @include font;
+      outline: none;
+      border: 0;
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    .mixerUnitArrow {
+      height: calc(100% - 12px - #{$fontSize});
+      background-image: url(asset-path('mixer/arrow.svg'));
+      background-size: calc(#{$basicWidth} / 100 * 22) calc(#{$basicUnit} / 100 * 36);
+      background-repeat: no-repeat;
+      background-position: center;
+      cursor: pointer;
+    }
+  }
+}

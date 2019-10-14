@@ -1,0 +1,33 @@
+.pickerWrapper {
+  width: $basicWidth;
+  height: $basicUnit;
+  cursor: pointer;
+
+  .pickerItem2 {
+    width: 100%;
+    height: calc(100% / 2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pickerItem3 {
+    width: 100%;
+    height: calc(100% / 3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pickerItem4 {
+    width: 100%;
+    height: calc(100% / 4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .active {
+    background-color: $darkGrey;
+  }
+}

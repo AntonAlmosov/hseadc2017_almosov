@@ -1,0 +1,11 @@
+.mixerControlls {
+  position: relative;
+  width: $basicWidth;
+  height: 100vh;
+  @include border;
+
+  .mixerControllsKnobs {
+    display: flex;
+    @include border;
+  }
+}

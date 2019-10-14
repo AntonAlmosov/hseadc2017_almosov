@@ -1,0 +1,18 @@
+$basicUnit: calc(100vh / 7);
+$basicWidth: calc(100vw / 11);
+$border: calc(#{$basicUnit} / 100 * 4);
+$bg: #F8F8F8;
+$grey: #F3F3F3;
+$darkGrey: #EDEDED;
+$green: #16B02F;
+$yellow: #FFD600;
+$fontSize: calc(#{$basicUnit} / 100 * 10);
+$fontFamily: 'GTAmericaExtendedMedium';
+
+@mixin border {
+  box-shadow: 0px 0px 0px 6px #000000 inset;
+}
+
+@mixin font {
+  font: $fontSize $fontFamily;
+}

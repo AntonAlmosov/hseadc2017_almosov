@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import SynthCotainer from '../containers/SynthCotainer'
+import AppContainer from '../containers/AppContainer'
 
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render( <
-    SynthCotainer / > ,
+    AppContainer / > ,
     document.body.appendChild(document.createElement('div')),
   )
 })

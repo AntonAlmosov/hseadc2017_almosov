@@ -87,7 +87,6 @@ export default ({ synth, handler }) => {
         )}
         {isAmFm && (
           <div>
-            {console.log(synth.oscillator.harmonicity)}
             <Knob
               name="oscillator"
               paramName="harmonicity"

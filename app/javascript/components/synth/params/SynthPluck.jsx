@@ -6,7 +6,7 @@ export default ({ synth, handler }) => {
     <div className="synthParams row">
       <div className="synthGeneralParams">
         <Knob
-          name="attackNoise"
+          name="synth"
           paramName="attackNoise"
           min={1}
           max={200}

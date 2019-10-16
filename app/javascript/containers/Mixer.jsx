@@ -5,7 +5,7 @@ import MixerControlls from '../components/mixer/MixerControlls'
 import MixerUnit from '../components/mixer/MixerUnit'
 import KeyboradListener from '../components/synth/KeyboradListener'
 
-export default class AppContainer extends React.Component {
+export default class Mixer extends React.Component {
   constructor(props) {
     super(props)
 

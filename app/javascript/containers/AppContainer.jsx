@@ -62,12 +62,21 @@ export default class AppContainer extends React.Component {
     synth.octave = value
   }
 
-  handleValueChange(name, param, value, n) {
-    let synths = this.state.synths
-    if (typeof synths[n][name][`${param}`] == 'object') {
-      synths[n][name][`${param}`].value = value
+  handleValueChange(name, param, value, n, optionalName) {
+    if (optionalName) {
+      let synths = this.state.synths
+      if (typeof synths[n][optionalName][name][`${param}`] == 'object') {
+        synths[n][optionalName][name][`${param}`].value = value
+      } else {
+        synths[n][optionalName][name][`${param}`] = value
+      }
     } else {
-      synths[n][name][`${param}`] = value
+      let synths = this.state.synths
+      if (typeof synths[n][name][`${param}`] == 'object') {
+        synths[n][name][`${param}`].value = value
+      } else {
+        synths[n][name][`${param}`] = value
+      }
     }
   }
   handleSynthValueChange(name, param, value, n) {
@@ -105,15 +114,102 @@ export default class AppContainer extends React.Component {
     let synth = new Tone.Synth()
     let drum = new Tone.MembraneSynth()
     let pluck = new Tone.PluckSynth()
+    pluck.attackNoise = 20
 
     let meter = new Tone.Meter()
     let gain = new Tone.Gain(1)
     let eq = new Tone.EQ3(0, 0, 0)
     eq.wet = 1
     let channel = new Tone.Channel()
-    synth.chain(meter, eq, gain, channel, Tone.Master)
-    drum.chain(meter, eq, gain, channel, Tone.Master)
-    pluck.chain(meter, eq, gain, channel, Tone.Master)
+    let autofilter = new Tone.AutoFilter()
+    let autopanner = new Tone.AutoPanner()
+    let autowah = new Tone.AutoWah()
+    let bitcrusher = new Tone.BitCrusher()
+    let chebyshev = new Tone.Chebyshev()
+    let chrorus = new Tone.Chorus()
+    let convolver = new Tone.Convolver()
+    let distortion = new Tone.Distortion()
+    let feedbackdelay = new Tone.FeedbackDelay()
+    let freeverb = new Tone.Freeverb()
+    let jscreverb = new Tone.JCReverb()
+    let phaser = new Tone.Phaser()
+    let pingpong = new Tone.PingPongDelay()
+    let pitchshift = new Tone.PitchShift()
+    let reverb = new Tone.Reverb()
+    let tremolo = new Tone.Tremolo()
+    let vibrato = new Tone.Vibrato()
+    synth.chain(
+      autofilter,
+      autopanner,
+      autowah,
+      bitcrusher,
+      chebyshev,
+      chrorus,
+      convolver,
+      distortion,
+      feedbackdelay,
+      freeverb,
+      jscreverb,
+      phaser,
+      pingpong,
+      pitchshift,
+      reverb,
+      tremolo,
+      vibrato,
+      meter,
+      eq,
+      gain,
+      channel,
+      Tone.Master
+    )
+    drum.chain(
+      autofilter,
+      autopanner,
+      autowah,
+      bitcrusher,
+      chebyshev,
+      chrorus,
+      convolver,
+      distortion,
+      feedbackdelay,
+      freeverb,
+      jscreverb,
+      phaser,
+      pingpong,
+      pitchshift,
+      reverb,
+      tremolo,
+      vibrato,
+      meter,
+      eq,
+      gain,
+      channel,
+      Tone.Master
+    )
+    pluck.chain(
+      autofilter,
+      autopanner,
+      autowah,
+      bitcrusher,
+      chebyshev,
+      chrorus,
+      convolver,
+      distortion,
+      feedbackdelay,
+      freeverb,
+      jscreverb,
+      phaser,
+      pingpong,
+      pitchshift,
+      reverb,
+      tremolo,
+      vibrato,
+      meter,
+      eq,
+      gain,
+      channel,
+      Tone.Master
+    )
 
     console.log(eq)
     let stateSynths = this.state.synths
@@ -148,7 +244,24 @@ export default class AppContainer extends React.Component {
       },
       eq: eq,
       gain: gain,
-      channel: channel
+      channel: channel,
+      autofilter: autofilter,
+      autopanner: autopanner,
+      autowah: autowah,
+      bitcrusher: bitcrusher,
+      chebyshev: chebyshev,
+      chrorus: chrorus,
+      convolver: convolver,
+      distortion: distortion,
+      feedbackdelay: feedbackdelay,
+      freeverb: freeverb,
+      jscreverb: jscreverb,
+      phaser: phaser,
+      pingpong: pingpong,
+      pitchshift: pitchshift,
+      reverb: reverb,
+      tremolo: tremolo,
+      vibrato: vibrato
     })
     this.setState({
       synths: stateSynths
@@ -163,11 +276,20 @@ export default class AppContainer extends React.Component {
         index: false
       })
     } else {
+      Tone.Transport.start()
       Tone.Transport.scheduleRepeat(time => {
         for (let synthN = 0; synthN < this.state.synths.length; synthN++) {
           let synth = this.state.synths[synthN]
+          // if (synth.sequense[index].length != 0) {
+          //   let part = new Tone.Part(function(time, note) {
+          //     console.log(note)
+          //   }, synth.sequense[index])
+          //   part.start(0)
+          //   part.loop = true
+          //   part.loopEnd = '1n'
+          // }
           synth.sequense[index].map(val => {
-            synth.synth.triggerAttackRelease(val, '16n')
+            synth.synth.triggerAttackRelease(val, '16n').toMaster()
           })
         }
         if (index < 16) index++
@@ -176,7 +298,6 @@ export default class AppContainer extends React.Component {
           index: index
         })
       }, '16n')
-      Tone.Transport.start()
     }
     this.setState({
       playing: !this.state.playing

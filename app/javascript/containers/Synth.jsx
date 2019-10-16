@@ -9,11 +9,12 @@ import ToggleButton from '../components/controlls/ToggleButton'
 import Knob from '../components/controlls/Knob'
 import SynthButton from '../components/controlls/SynthButton'
 import SynthParams from '../components/synth/SynthParams'
+import Effects from '../components/effects/Effects'
 
-export default class AppContainer extends React.Component {
+export default class Synth extends React.Component {
   constructor(props) {
     super(props)
-    this.state = this.props.value
+    // this.state = this.props.value
 
     _.bindAll(
       this,
@@ -51,12 +52,13 @@ export default class AppContainer extends React.Component {
     this.props.handleSequense(newSequense, this.props.n)
   }
   handleSolo() {
-    let solo = !this.state.channel.solo
+    let solo = !this.props.value.channel.solo
     this.props.handleValueChange('channel', 'solo', solo, this.props.n)
     this.forceUpdate()
   }
-  handleValueChange(name, param, value) {
-    this.props.handleValueChange(name, param, value, this.props.n)
+  handleValueChange(name, param, value, optional) {
+    console.log(value)
+    this.props.handleValueChange(name, param, value, this.props.n, optional)
     this.forceUpdate()
   }
   handleSynthValueChange(name, param, value) {
@@ -66,10 +68,10 @@ export default class AppContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="Synth">
         <KeyboradListener
-          synth={this.state.synth}
-          octave={this.state.octave}
+          synth={this.props.value.synth}
+          octave={this.props.value.octave}
           handlePlay={this.props.handlePlay}
           changeView={this.handleSwitch}
         />
@@ -78,17 +80,17 @@ export default class AppContainer extends React.Component {
             <div className="sequensorTopControlls">
               <CloseButton handler={this.props.changeView} />
               <SynthButton
-                name={this.state.name}
+                name={this.props.value.name}
                 nameHandler={this.handleRename}
               />
               <ToggleButton
-                isTrue={this.state.channel.solo}
+                isTrue={this.props.value.channel.solo}
                 handler={this.handleSolo}
                 customClass="yellow"
                 text={'CUE'}
               />
               <Picker
-                current={this.state.synth}
+                current={this.props.value.synth}
                 items={['Synth', 'MembraneSynth', 'PluckSynth']}
                 names={['Normal', 'Drums', 'Pluck']}
                 handler={this.handleSynthChange}
@@ -101,7 +103,7 @@ export default class AppContainer extends React.Component {
                 increment={1}
                 initialDeg={90}
                 overDeg={135}
-                value={this.state.channel.volume.value}
+                value={this.props.value.channel.volume.value}
                 handleValueChange={this.handleValueChange}
                 synthN={this.props.n}
               />
@@ -113,7 +115,7 @@ export default class AppContainer extends React.Component {
                 increment={100}
                 initialDeg={90}
                 overDeg={135}
-                value={this.state.channel.pan.value}
+                value={this.props.value.channel.pan.value}
                 handleValueChange={this.handleValueChange}
                 synthN={this.props.n}
               />
@@ -123,19 +125,20 @@ export default class AppContainer extends React.Component {
               <div className="bottom"></div>
             </div>
             <Sequensor
-              octave={this.state.octave}
+              octave={this.props.value.octave}
               handleOctave={this.handleOctave}
               handleSequense={this.handleSequense}
-              sequense={this.state.sequense}
+              sequense={this.props.value.sequense}
               index={this.props.index}
             />
           </div>
           <SynthParams
-            synth={this.state}
+            synth={this.props.value}
             handler={this.handleValueChange}
             synthHandler={this.handleSynthValueChange}
           />
         </div>
+        <Effects synth={this.props.value} handler={this.handleValueChange} />
       </div>
     )
   }

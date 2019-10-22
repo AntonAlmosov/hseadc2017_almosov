@@ -25,7 +25,9 @@ export default class Synth extends React.Component {
       'handleSolo',
       'handleValueChange',
       'handleRename',
-      'handleSynthValueChange'
+      'handleSynthValueChange',
+      'handleSubValueChange',
+      'handleEffectConnect'
     )
   }
 
@@ -56,14 +58,22 @@ export default class Synth extends React.Component {
     this.props.handleValueChange('channel', 'solo', solo, this.props.n)
     this.forceUpdate()
   }
-  handleValueChange(name, param, value, optional) {
+  handleValueChange(name, param, value) {
     console.log(value)
-    this.props.handleValueChange(name, param, value, this.props.n, optional)
+    this.props.handleValueChange(name, param, value, this.props.n)
+    this.forceUpdate()
+  }
+  handleSubValueChange(name, param, inner, value) {
+    this.props.handleSubValueChange(name, param, inner, value, this.props.n)
     this.forceUpdate()
   }
   handleSynthValueChange(name, param, value) {
     this.props.handleSynthValueChange(name, param, value, this.props.n)
     this.forceUpdate()
+  }
+
+  handleEffectConnect(effect) {
+    this.props.handleEffectConnect(effect, this.props.n)
   }
 
   render() {
@@ -138,7 +148,12 @@ export default class Synth extends React.Component {
             synthHandler={this.handleSynthValueChange}
           />
         </div>
-        <Effects synth={this.props.value} handler={this.handleValueChange} />
+        <Effects
+          synth={this.props.value}
+          handler={this.handleValueChange}
+          subHandler={this.handleSubValueChange}
+          handleConnect={this.handleEffectConnect}
+        />
       </div>
     )
   }

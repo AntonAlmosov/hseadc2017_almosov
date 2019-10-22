@@ -1,0 +1,14 @@
+.filter {
+  position: relative;
+  // margin-top: -6px;
+  height: calc(#{$basicUnit} * 3 + 12px);
+
+  &:not(:first-of-type) {
+    // margin-left: -6px;
+  }
+}
+
+.effectsWrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+}

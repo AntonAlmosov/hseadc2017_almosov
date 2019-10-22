@@ -1,24 +1,24 @@
 .envelope {
-  width: calc(#{$basicWidth} * 4 + 6px);
+  width: calc(#{$basicWidth} * 4);
   height: calc(#{$basicUnit} * 2);
-  margin-left: -6px;
+  // margin-left: -6px;
   position: relative;
 }
 
 .synthGeneralParams {
   position: relative;
-  width: calc(#{$basicWidth} + 6px);
-  margin-left: -6px;
-  height: calc(#{$basicUnit} * 4 - 6px);
+  width: calc(#{$basicWidth});
+  // margin-left: -6px;
+  height: calc(#{$basicUnit} * 4);
 
   .KnobWrapper {
     h1 {
-      margin-left: 6px;
-      width: calc(100% - 6px);
+      // margin-left: 6px;
+      width: calc(100%);
     }
 
     .Knob {
-      margin-left: 6px;
+      // margin-left: 6px;
     }
   }
 }

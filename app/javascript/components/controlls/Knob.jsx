@@ -9,7 +9,9 @@ export default class Knob extends React.Component {
 
     this.state = {
       mouseDown: false,
-      name: this.props.paramName.replace(/^\w/, c => c.toUpperCase()),
+      name: this.props.paramName
+        .replace(/^\w/, c => c.toUpperCase())
+        .slice(0, 8),
       value: value,
       deg: this.props.initialDeg,
       screenY: 0
@@ -69,7 +71,9 @@ export default class Knob extends React.Component {
 
       this.setState({
         mouseDown: false,
-        name: this.props.paramName.replace(/^\w/, c => c.toUpperCase())
+        name: this.props.paramName
+          .replace(/^\w/, c => c.toUpperCase())
+          .slice(0, 8)
       })
     }
   }

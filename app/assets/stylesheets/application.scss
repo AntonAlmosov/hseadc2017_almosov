@@ -36,7 +36,7 @@ div {
 
 .left {
   position: absolute;
-  left: 0;
+  left: -3px;
   top: 0;
   height: 100%;
   width: 6px;
@@ -46,7 +46,7 @@ div {
 
 .right {
   position: absolute;
-  right: 0;
+  right: -3px;
   top: 0;
   height: 100%;
   width: 6px;
@@ -57,7 +57,7 @@ div {
 .bottom {
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -3px;
   height: 6px;
   width: 100%;
   background-color: black;
@@ -67,7 +67,7 @@ div {
 .top {
   position: absolute;
   left: 0;
-  top: 0;
+  top: -3px;
   height: 6px;
   width: 100%;
   background-color: black;
@@ -77,7 +77,7 @@ div {
 body {
   background-color: $bg;
   height: 100vh;
-  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 @import './controlls/*';

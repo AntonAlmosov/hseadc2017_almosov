@@ -1,8 +1,8 @@
 .mixerUnit {
   width: $basicWidth;
   height: 100vh;
-  margin-left: -6px;
-  @include border;
+  // margin-left: -6px;
+  position: relative;
 
   .mixerUnitHeader {
     width: 100%;

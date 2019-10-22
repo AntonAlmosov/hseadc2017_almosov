@@ -4,43 +4,5 @@
   height: $basicUnit;
   position: relative;
 
-  .left {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 6px;
-    background-color: black;
-    z-index: 10;
-  }
 
-  .right {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: 6px;
-    background-color: black;
-    z-index: 10;
-  }
-
-  .bottom {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 6px;
-    width: 100%;
-    background-color: black;
-    z-index: 10;
-  }
-
-  .top {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 6px;
-    width: 100%;
-    background-color: black;
-    z-index: 10;
-  }
 }

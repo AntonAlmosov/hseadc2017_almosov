@@ -1,6 +1,7 @@
 .mixerWrapper {
   display: flex;
   height: 100vh;
+  overflow-x: scroll;
 
   .createSynth {
     width: $basicWidth;

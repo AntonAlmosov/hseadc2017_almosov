@@ -4,7 +4,7 @@ import ToggleButton from '../controlls/ToggleButton'
 import Knob from '../controlls/Knob'
 import Picker from '../controlls/Picker'
 
-export default class Autofilter extends React.Component {
+export default class Autopanner extends React.Component {
   constructor(props) {
     super(props)
 
@@ -12,11 +12,11 @@ export default class Autofilter extends React.Component {
   }
 
   handlePicker(value) {
-    this.props.handler('autofilter', 'type', value)
+    this.props.handler('autopanner', 'type', value)
   }
 
   handlerFilter(value) {
-    this.props.subHandler('autofilter', 'filter', 'type', value)
+    this.props.subHandler('autopanner', 'filter', 'type', value)
   }
   handlerFilterKnob(name, param, value) {
     this.props.subHandler(name, 'filter', param, value)
@@ -25,26 +25,15 @@ export default class Autofilter extends React.Component {
   render() {
     let value = this.props.value
     return (
-      <div className="filter autofiler">
+      <div className="filter autopanner">
         <div className="row">
           <ToggleButton
             isTrue={this.props.isConnected}
-            handler={() => this.props.handleConnect('autofilter')}
-            text="AUTOFILTER"
+            handler={() => this.props.handleConnect('autopanner')}
+            text="AUTOPANNER"
           />
           <Knob
-            name="autofilter"
-            paramName="baseFrequensy"
-            min={1}
-            max={100}
-            increment={0.005}
-            initialDeg={-45}
-            overDeg={270}
-            value={value.baseFrequensy}
-            handleValueChange={this.props.handler}
-          />
-          <Knob
-            name="autofilter"
+            name="autopanner"
             paramName="wet"
             min={1}
             max={100}
@@ -56,14 +45,8 @@ export default class Autofilter extends React.Component {
           />
         </div>
         <div className="row">
-          <Picker
-            current={value.type}
-            items={['sine', 'square', 'sawtooth', 'triangle']}
-            names={['sine', 'square', 'sawtooth', 'triangle']}
-            handler={this.handlePicker}
-          />
           <Knob
-            name="autofilter"
+            name="autopanner"
             paramName="depth"
             min={1}
             max={100}
@@ -74,36 +57,18 @@ export default class Autofilter extends React.Component {
             handleValueChange={this.props.handler}
           />
           <Knob
-            name="autofilter"
-            paramName="octaves"
+            name="autopanner"
+            paramName="frequency"
             min={1}
-            max={6}
+            max={100}
             increment={1}
             initialDeg={-70}
             overDeg={270}
-            value={value.octaves}
+            value={value.frequency.value}
             handleValueChange={this.props.handler}
           />
         </div>
-        <div className="row">
-          <Picker
-            current={value.filter.type}
-            items={['lowpass', 'highpass']}
-            names={['lowpass', 'highpass']}
-            handler={this.handlerFilter}
-          />
-          <Knob
-            name="autofilter"
-            paramName="detune"
-            min={1}
-            max={100}
-            increment={10}
-            initialDeg={-45}
-            overDeg={270}
-            value={value.filter.detune.value}
-            handleValueChange={this.handlerFilterKnob}
-          />
-        </div>
+        <div className="row"></div>
         <div className="row"></div>
         <div className="left"></div>
         <div className="top"></div>

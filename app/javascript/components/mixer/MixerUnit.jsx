@@ -92,6 +92,10 @@ export default class MixerUnit extends React.Component {
           muted={this.props.muted}
           cued={this.props.cued}
         />
+        <div className="left"></div>
+        <div className="right"></div>
+        <div className="bottom"></div>
+        <div className="top"></div>
       </div>
     )
   }

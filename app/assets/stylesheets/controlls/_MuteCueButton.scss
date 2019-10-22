@@ -29,9 +29,58 @@
       background-color: $yellow;
       color: white;
       box-sizing: border-box;
-      border-left: 6px solid black;
-      border-right: 6px solid black;
-      border-bottom: 6px solid black;
     }
   }
 }
+
+// autopanner,
+// autowah,
+// bitcrusher,
+// chebyshev,
+// chrorus,
+// convolver,
+// distortion,
+// feedbackdelay,
+// freeverb,
+// jscreverb,
+// phaser,
+// pingpong,
+// pitchshift,
+// reverb,
+// tremolo,
+// vibrato,
+
+// autopanner: autopanner,
+// autowah: autowah,
+// bitcrusher: bitcrusher,
+// chebyshev: chebyshev,
+// chrorus: chrorus,
+// convolver: convolver,
+// distortion: distortion,
+// feedbackdelay: feedbackdelay,
+// freeverb: freeverb,
+// jscreverb: jscreverb,
+// phaser: phaser,
+// pingpong: pingpong,
+// pitchshift: pitchshift,
+// reverb: reverb,
+// tremolo: tremolo,
+// vibrato: vibrato
+
+// let autofilter = new Tone.AutoFilter()
+// let autopanner = new Tone.AutoPanner()
+// let autowah = new Tone.AutoWah()
+// let bitcrusher = new Tone.BitCrusher()
+// let chebyshev = new Tone.Chebyshev()
+// let chrorus = new Tone.Chorus()
+// let convolver = new Tone.Convolver()
+// let distortion = new Tone.Distortion()
+// let feedbackdelay = new Tone.FeedbackDelay()
+// let freeverb = new Tone.Freeverb()
+// let jscreverb = new Tone.JCReverb()
+// let phaser = new Tone.Phaser()
+// let pingpong = new Tone.PingPongDelay()
+// let pitchshift = new Tone.PitchShift()
+// let reverb = new Tone.Reverb()
+// let tremolo = new Tone.Tremolo()
+// let vibrato = new Tone.Vibrato()

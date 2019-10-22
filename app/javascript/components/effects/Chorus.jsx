@@ -4,19 +4,20 @@ import ToggleButton from '../controlls/ToggleButton'
 import Knob from '../controlls/Knob'
 import Picker from '../controlls/Picker'
 
-export default class Autofilter extends React.Component {
+export default class Chorus extends React.Component {
   constructor(props) {
     super(props)
 
+    // console.log(this.props.value.Q)
     _.bindAll(this, 'handlerFilter', 'handlePicker', 'handlerFilterKnob')
   }
 
   handlePicker(value) {
-    this.props.handler('autofilter', 'type', value)
+    this.props.handler('chorus', 'oversample', value)
   }
 
   handlerFilter(value) {
-    this.props.subHandler('autofilter', 'filter', 'type', value)
+    this.props.subHandler('chorus', 'filter', 'type', value)
   }
   handlerFilterKnob(name, param, value) {
     this.props.subHandler(name, 'filter', param, value)
@@ -25,26 +26,15 @@ export default class Autofilter extends React.Component {
   render() {
     let value = this.props.value
     return (
-      <div className="filter autofiler">
+      <div className="filter chorus">
         <div className="row">
           <ToggleButton
             isTrue={this.props.isConnected}
-            handler={() => this.props.handleConnect('autofilter')}
-            text="AUTOFILTER"
+            handler={() => this.props.handleConnect('chorus')}
+            text="chorus"
           />
           <Knob
-            name="autofilter"
-            paramName="baseFrequensy"
-            min={1}
-            max={100}
-            increment={0.005}
-            initialDeg={-45}
-            overDeg={270}
-            value={value.baseFrequensy}
-            handleValueChange={this.props.handler}
-          />
-          <Knob
-            name="autofilter"
+            name="chorus"
             paramName="wet"
             min={1}
             max={100}
@@ -56,52 +46,51 @@ export default class Autofilter extends React.Component {
           />
         </div>
         <div className="row">
-          <Picker
-            current={value.type}
-            items={['sine', 'square', 'sawtooth', 'triangle']}
-            names={['sine', 'square', 'sawtooth', 'triangle']}
-            handler={this.handlePicker}
-          />
           <Knob
-            name="autofilter"
-            paramName="depth"
+            name="chorus"
+            paramName="frequency"
             min={1}
             max={100}
-            increment={100}
+            increment={1}
             initialDeg={-45}
             overDeg={270}
-            value={value.depth.value}
+            value={value.frequency.value}
             handleValueChange={this.props.handler}
           />
           <Knob
-            name="autofilter"
-            paramName="octaves"
-            min={1}
-            max={6}
+            name="chorus"
+            paramName="delayTime"
+            min={2}
+            max={20}
             increment={1}
-            initialDeg={-70}
+            initialDeg={-45}
             overDeg={270}
-            value={value.octaves}
+            value={value.delayTime}
             handleValueChange={this.props.handler}
           />
         </div>
         <div className="row">
-          <Picker
-            current={value.filter.type}
-            items={['lowpass', 'highpass']}
-            names={['lowpass', 'highpass']}
-            handler={this.handlerFilter}
-          />
           <Knob
-            name="autofilter"
-            paramName="detune"
-            min={1}
-            max={100}
-            increment={10}
+            name="chorus"
+            paramName="depth"
+            min={2}
+            max={20}
+            increment={1}
             initialDeg={-45}
             overDeg={270}
-            value={value.filter.detune.value}
-            handleValueChange={this.handlerFilterKnob}
+            value={value.depth}
+            handleValueChange={this.props.handler}
+          />
+          <Knob
+            name="chorus"
+            paramName="spread"
+            min={0}
+            max={180}
+            increment={1}
+            initialDeg={-45}
+            overDeg={270}
+            value={value.spread}
+            handleValueChange={this.props.handler}
           />
         </div>
         <div className="row"></div>

@@ -35,12 +35,17 @@ export default class AppContainer extends React.Component {
       'handleSynthChange',
       'handleOctaveChange',
       'handleSequense',
-      'handleSynthValueChange'
+      'handleSynthValueChange',
+      'handleSubValueChange',
+      'handleEffectConnect'
     )
   }
 
   componentDidMount() {
     this.createSynth()
+    this.setState({
+      inView: 0
+    })
   }
 
   handleSynthChange(value, n) {
@@ -62,21 +67,35 @@ export default class AppContainer extends React.Component {
     synth.octave = value
   }
 
-  handleValueChange(name, param, value, n, optionalName) {
-    if (optionalName) {
-      let synths = this.state.synths
-      if (typeof synths[n][optionalName][name][`${param}`] == 'object') {
-        synths[n][optionalName][name][`${param}`].value = value
-      } else {
-        synths[n][optionalName][name][`${param}`] = value
-      }
+  handleEffectConnect(effectName, n) {
+    let synths = this.state.synths
+    let effect = this.state.synths[n][`${effectName}`]
+    let connected = this.state.synths[n].connected[`${effectName}`]
+    if (!connected) {
+      synths[n].connected[`${effectName}`] = true
     } else {
-      let synths = this.state.synths
-      if (typeof synths[n][name][`${param}`] == 'object') {
-        synths[n][name][`${param}`].value = value
-      } else {
-        synths[n][name][`${param}`] = value
-      }
+      synths[n].connected[`${effectName}`] = false
+    }
+    this.setState({
+      synths: synths
+    })
+    console.log(this.state.synths[n])
+  }
+
+  handleValueChange(name, param, value, n) {
+    let synths = this.state.synths
+    if (typeof synths[n][name][`${param}`] == 'object') {
+      synths[n][name][`${param}`].value = value
+    } else {
+      synths[n][name][`${param}`] = value
+    }
+  }
+  handleSubValueChange(name, param, inner, value, n) {
+    let synths = this.state.synths
+    if (typeof synths[n][name][`${param}`][`${inner}`] == 'object') {
+      synths[n][name][`${param}`][`${inner}`].value = value
+    } else {
+      synths[n][name][`${param}`][`${inner}`] = value
     }
   }
   handleSynthValueChange(name, param, value, n) {
@@ -114,104 +133,65 @@ export default class AppContainer extends React.Component {
     let synth = new Tone.Synth()
     let drum = new Tone.MembraneSynth()
     let pluck = new Tone.PluckSynth()
-    pluck.attackNoise = 20
 
     let meter = new Tone.Meter()
-    let gain = new Tone.Gain(1)
+    let gain = new Tone.Gain(0.5)
     let eq = new Tone.EQ3(0, 0, 0)
     eq.wet = 1
     let channel = new Tone.Channel()
-    let autofilter = new Tone.AutoFilter()
     let autopanner = new Tone.AutoPanner()
-    let autowah = new Tone.AutoWah()
+    autopanner.wet.value = 0
     let bitcrusher = new Tone.BitCrusher()
-    let chebyshev = new Tone.Chebyshev()
-    let chrorus = new Tone.Chorus()
-    let convolver = new Tone.Convolver()
-    let distortion = new Tone.Distortion()
-    let feedbackdelay = new Tone.FeedbackDelay()
-    let freeverb = new Tone.Freeverb()
+    bitcrusher.wet.value = 0
+    let chorus = new Tone.Chorus()
+    chorus.wet.value = 0
     let jscreverb = new Tone.JCReverb()
+    jscreverb.wet.value = 0
     let phaser = new Tone.Phaser()
-    let pingpong = new Tone.PingPongDelay()
-    let pitchshift = new Tone.PitchShift()
-    let reverb = new Tone.Reverb()
-    let tremolo = new Tone.Tremolo()
-    let vibrato = new Tone.Vibrato()
+    phaser.wet.value = 0
+    phaser.baseFrequensy = 0
+    let distortion = new Tone.Distortion()
+    distortion.wet.value = 0
     synth.chain(
-      autofilter,
-      autopanner,
-      autowah,
-      bitcrusher,
-      chebyshev,
-      chrorus,
-      convolver,
       distortion,
-      feedbackdelay,
-      freeverb,
+      bitcrusher,
+      chorus,
       jscreverb,
       phaser,
-      pingpong,
-      pitchshift,
-      reverb,
-      tremolo,
-      vibrato,
-      meter,
+      autopanner,
       eq,
       gain,
+      meter,
       channel,
       Tone.Master
     )
     drum.chain(
-      autofilter,
-      autopanner,
-      autowah,
-      bitcrusher,
-      chebyshev,
-      chrorus,
-      convolver,
       distortion,
-      feedbackdelay,
-      freeverb,
+      bitcrusher,
+      chorus,
       jscreverb,
       phaser,
-      pingpong,
-      pitchshift,
-      reverb,
-      tremolo,
-      vibrato,
-      meter,
+      autopanner,
       eq,
       gain,
+      meter,
       channel,
       Tone.Master
     )
     pluck.chain(
-      autofilter,
-      autopanner,
-      autowah,
-      bitcrusher,
-      chebyshev,
-      chrorus,
-      convolver,
       distortion,
-      feedbackdelay,
-      freeverb,
+      bitcrusher,
+      chorus,
       jscreverb,
       phaser,
-      pingpong,
-      pitchshift,
-      reverb,
-      tremolo,
-      vibrato,
-      meter,
+      autopanner,
       eq,
       gain,
+      meter,
       channel,
       Tone.Master
     )
 
-    console.log(eq)
     let stateSynths = this.state.synths
     stateSynths.push({
       name: 'Tone',
@@ -242,26 +222,24 @@ export default class AppContainer extends React.Component {
         drum: drum,
         pluck: pluck
       },
+      connected: {
+        autofilter: true,
+        autopanner: true,
+        autowah: true,
+        bitcrusher: true,
+        chebyshev: true,
+        chorus: true,
+        convolver: true
+      },
       eq: eq,
       gain: gain,
       channel: channel,
-      autofilter: autofilter,
       autopanner: autopanner,
-      autowah: autowah,
       bitcrusher: bitcrusher,
-      chebyshev: chebyshev,
-      chrorus: chrorus,
-      convolver: convolver,
-      distortion: distortion,
-      feedbackdelay: feedbackdelay,
-      freeverb: freeverb,
-      jscreverb: jscreverb,
+      chorus: chorus,
       phaser: phaser,
-      pingpong: pingpong,
-      pitchshift: pitchshift,
-      reverb: reverb,
-      tremolo: tremolo,
-      vibrato: vibrato
+      jscreverb: jscreverb,
+      distortion: distortion
     })
     this.setState({
       synths: stateSynths
@@ -276,20 +254,12 @@ export default class AppContainer extends React.Component {
         index: false
       })
     } else {
-      Tone.Transport.start()
       Tone.Transport.scheduleRepeat(time => {
         for (let synthN = 0; synthN < this.state.synths.length; synthN++) {
           let synth = this.state.synths[synthN]
-          // if (synth.sequense[index].length != 0) {
-          //   let part = new Tone.Part(function(time, note) {
-          //     console.log(note)
-          //   }, synth.sequense[index])
-          //   part.start(0)
-          //   part.loop = true
-          //   part.loopEnd = '1n'
-          // }
+          synth.autopanner.start()
           synth.sequense[index].map(val => {
-            synth.synth.triggerAttackRelease(val, '16n').toMaster()
+            synth.synth.triggerAttackRelease(val, '16n')
           })
         }
         if (index < 16) index++
@@ -298,6 +268,7 @@ export default class AppContainer extends React.Component {
           index: index
         })
       }, '16n')
+      Tone.Transport.start()
     }
     this.setState({
       playing: !this.state.playing
@@ -385,6 +356,8 @@ export default class AppContainer extends React.Component {
             handleValueChange={this.handleValueChange}
             handleSynthValueChange={this.handleSynthValueChange}
             handleRename={this.handleNameChange}
+            handleSubValueChange={this.handleSubValueChange}
+            handleEffectConnect={this.handleEffectConnect}
           />
         )}
       </div>

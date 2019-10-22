@@ -1,4 +1,5 @@
 .playButton {
+  position: relative;
   cursor: pointer;
   width: $basicWidth;
   height: calc(#{$basicUnit} * 2);
@@ -6,7 +7,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  @include border;
 
   .playButtonIcon {
     background-image: url(asset-path('playButton/playing.svg'));
@@ -21,6 +21,7 @@
 }
 
 .playButtonActive {
+  position: relative;
   cursor: pointer;
   width: $basicWidth;
   height: calc(#{$basicUnit} * 2);
@@ -28,7 +29,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  @include border;
 
   .playButtonIcon {
     background-image: url(asset-path('playButton/play.svg'));

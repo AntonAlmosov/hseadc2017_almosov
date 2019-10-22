@@ -31,8 +31,16 @@ export default ({ handleBpm, bpm, handleGain, gain, handlePlay, playing }) => {
           value={bpm}
           handleValueChange={handleBpm}
         />
+        <div className="left"></div>
+        <div className="right"></div>
+        <div className="bottom"></div>
+        <div className="top"></div>
       </div>
       <PlayButton playing={playing} handler={handlePlay} />
+      <div className="left"></div>
+      <div className="right"></div>
+      <div className="bottom"></div>
+      <div className="top"></div>
     </div>
   )
 }

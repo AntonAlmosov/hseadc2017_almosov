@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'GTAmericaExtendedMedium';
+  src: url(font-path('GTAmericaExtendedMedium.otf'))
+}
+
 $basicUnit: calc(100vh / 7);
 $basicWidth: calc(100vw / 11);
 $border: calc(#{$basicUnit} / 100 * 4);
